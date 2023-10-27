@@ -1,0 +1,39 @@
+<%- include('partials/header.ejs') %>
+
+<div class="box" id="heading">
+    <h1>Work List</h1>
+</div>
+<form action="/work" method="post" class="box">
+    <% if (locals.value) { %>
+        <% for( let i = 0; i < len; i++ ) { %>
+            <div class="item">
+                <input type="checkbox">
+                <p><%= value[i] %></p>
+            </div>
+        <% } %>
+        <div class="item" id="input">
+            <input type="text" name="newItem" placeholder="New Item" id="input" autocomplete="off">
+            <input type="submit" value="+">
+        </div>
+    <% } else { %>
+        <% if(len == 0) { %>
+            <div class="item" id="input">
+                <input type="text" name="newItem" placeholder="New Item" id="input" autocomplete="off">
+                <input type="submit" value="+">
+            </div>
+        <% } else { %>
+            <% for( let i = 0; i < len; i++ ) { %>
+                <div class="item">
+                    <input type="checkbox">
+                    <p><%= value[i] %></p>
+                </div>
+            <% } %>
+            <div class="item" id="input">
+                <input type="text" name="newItem" placeholder="New Item" id="input" autocomplete="off">
+                <input type="submit" value="+">
+            </div>
+        <% } %>
+    <% } %>
+</form>
+
+<%- include('partials/footer.ejs') %>
