@@ -3,37 +3,38 @@
 <div class="box" id="heading">
     <h1><%= date %></h1>
 </div>
-<form action="/" method="post" class="box">
-    <% if (locals.value) { %>
-        <% for( let i = 0; i < len; i++ ) { %>
-            <div class="item">
-                <input type="checkbox">
-                <p><%= value[i] %></p>
+<div action="/" method="post" class="box">
+    <% if(len == 0) { %>
+        <form action="/" method="post">
+            <div class="item" id="input">
+                <input type="text" name="newItem" placeholder="New Item" id="input" autocomplete="off">
+                <input type="submit" value="+">
             </div>
-        <% } %>
-        <div class="item" id="input">
-            <input type="text" name="newItem" placeholder="New Item" id="input" autocomplete="off">
-            <input type="submit" value="+">
-        </div>
+        </form>
     <% } else { %>
-        <% if(len == 0) { %>
-            <div class="item" id="input">
-                <input type="text" name="newItem" placeholder="New Item" id="input" autocomplete="off">
-                <input type="submit" value="+">
-            </div>
-        <% } else { %>
-            <% for( let i = 0; i < len; i++ ) { %>
-                <div class="item">
-                    <input type="checkbox">
-                    <p><%= value[i] %></p>
-                </div>
-            <% } %>
-            <div class="item" id="input">
-                <input type="text" name="newItem" placeholder="New Item" id="input" autocomplete="off">
-                <input type="submit" value="+">
+        <% for( let value of values ) { %>
+            <div class="item">
+                <form action="/delete" method="post">
+                    <input type="checkbox" onchange="this.form.submit()" name="deletedItemId" value="<%= value.id %>">
+                </form>
+                <p id="title<%= value.id %>"><%= value.title %></p>
+                <form action="/edit" method="post" class="edit">
+                    <input type="hidden" name="updatedListId" value="<%= value.id %>">
+                    <input type="text" name="updatedListTitle" id="input<%= value.id %>" value="<%= value.title %>" autocomplete="off" autofocus hidden>
+                    <button type="submit" class="transBtn" id="done<%= value.id %>" hidden>
+                        <i class="fas fa-check"></i>
+                    </button>
+                    <i class="fas fa-pencil-alt" id="edit<%= value.id %>" onclick="handler('<%= value.id %>')"></i>
+                </form>
             </div>
         <% } %>
-    <% } %>
-</form>
+        <form action="/" method="post">
+            <div class="item" id="input">
+                <input type="text" name="newItem" placeholder="New Item" id="input" autocomplete="off">
+                <input type="submit" value="+">
+            </div>
+        </form>
+        <% } %>
+</div>
 
 <%- include('partials/footer.ejs') %>

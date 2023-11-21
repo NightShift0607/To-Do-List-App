@@ -9,7 +9,11 @@ const port = 3000;
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
 var todayDate = "";
-var list1 = [];
+var list1 = [
+    { id: 1, title: 'Be Good'},
+    { id: 2, title: 'Fuck Off' },
+    { id: 3, title: 'Love Everyone'}
+];
 var list2 = [];
 
 function setDate(req, res, next) {
@@ -91,7 +95,7 @@ app.get("/", (req,res) => {
     let length = list1.length;
     res.render(__dirname + "/views/index.ejs", { 
         date : todayDate,
-        value : list1,
+        values : list1,
         len : length
     });
 })
@@ -102,7 +106,7 @@ app.post("/", (req, res) => {
     let length = list1.length;
     res.render(__dirname + "/views/index.ejs", {
         date : todayDate,
-        value : list1,
+        values : list1,
         len : length
     });
 })
@@ -110,7 +114,7 @@ app.post("/", (req, res) => {
 app.get("/work", (req,res) => {
     let length = list2.length;
     res.render(__dirname + "/views/work.ejs", { 
-        value : list2,
+        values : list2,
         len : length
     });
 })
@@ -120,7 +124,7 @@ app.post("/work", (req, res) => {
     list2.push(inputValue);
     let length = list2.length;
     res.render(__dirname + "/views/work.ejs", {
-        value : list2,
+        values : list2,
         len : length
     });
 })
