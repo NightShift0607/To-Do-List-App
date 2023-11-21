@@ -1,5 +1,5 @@
 # To-Do-List-App
-A To Do List App made using nodejs, expressjs, ejs
+A To Do List App made using nodejs, expressjs, ejs, postgreSQL
 
 Commands needed to run this project locally is :-
 
